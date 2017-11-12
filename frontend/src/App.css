@@ -2,6 +2,13 @@
   text-align: center;
 }
 
+.textChild {
+  display: inline-block;
+  position: absolute;
+  transform: translateY(-75%);
+  left: 20px;
+}
+
 .marker {
   position: absolute;
   height: 40px;
@@ -13,7 +20,7 @@
   position: absolute;
   height: 40px;
   width: 40px;
-  left: -20px;
+  left: -40px;
   top: -40px;
   cursor: pointer;
 }

@@ -14,20 +14,12 @@ export default class MapDisplay extends Component {
 	    greatPlaceCoords: {},
 	    lat: 0,
 	    lng: 0,
-	    displayDesc: false,
     }
   }
 
   static defaultProps = {
     center: [50.0, 0.0],
     zoom: 12,
-  }
-
-
-  handleClick() {
-  	this.setState({
-  		displayDesc: !this.state.displayDesc
-  	});
   }
 
 	componentDidMount() {
@@ -54,15 +46,19 @@ export default class MapDisplay extends Component {
 		);
 
 		const Marker = ({ id, title, description}) =>
-			<div>
-				<div className="markerWrapper">
-					<img onClick={() => this.handleClick()} className="marker" src={marker} alt="marker"/>
-				</div>
-				<div className={this.props.displayDesc ? 'hidden' : 'shown'}>
-					<div className="markerText">
-						<a href={"https://www.imdb.com/title/" + id}>{title}</a>
+			<div className="parent">
+				<div className="child">
+					<div className="markerWrapper">
+						<img className="marker" src={marker} alt="marker"/>
 					</div>
-					<div className="markerText">{description}</div>
+					<div className="textChild">
+						<div className="shown">
+							<div className="markerText">
+								<a href={"https://www.imdb.com/title/" + id}>{title}</a>
+							</div>
+							<div className="markerText">{description}</div>
+						</div>
+					</div>
 				</div>
 			</div>;
 		
@@ -93,8 +89,8 @@ export default class MapDisplay extends Component {
 	      	bootstrapURLKeys={{key: 'AIzaSyC_ZiYZLIO1d0o96Z_H3cQx1LerKnwFw1c'}}
 	      	defaultCenter={this.props.center}
 	      	center={this.state.center}
-	      	defaultZoom={12}
-	      	zoom={12}
+	      	defaultZoom={14}
+	      	zoom={14}
 	      	>
 	      	{
 	      		locationList
