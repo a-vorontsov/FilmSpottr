@@ -13,5 +13,3 @@ export default class App extends Component {
     );
   }
 }
-
-// Chichester 1 coords =  lat: 50.865761, lng: -0.087263

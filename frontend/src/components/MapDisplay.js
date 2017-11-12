@@ -4,7 +4,6 @@ import geolib from 'geolib';
 import marker from '../img/marker.svg';
 import locationData from '../ukFilmLocations.json';
 
-const Marker = () => <div><img className="marker" src={marker} alt="marker"/></div>;
 
 export default class MapDisplay extends Component {
 	constructor(props) {
@@ -21,7 +20,12 @@ export default class MapDisplay extends Component {
   static defaultProps = {
     center: [50.0, 0.0],
     zoom: 12,
-  };
+  }
+
+
+  handleClick() {
+
+  }
 
 	componentDidMount() {
 		navigator.geolocation.getCurrentPosition(
@@ -37,7 +41,7 @@ export default class MapDisplay extends Component {
 
   render() {
   	navigator.geolocation.getCurrentPosition(
-			position => {
+			(position) => {
 				this.setState({
 					center: [position.coords.latitude, position.coords.longitude],
 					lat: position.coords.latitude,
@@ -45,6 +49,15 @@ export default class MapDisplay extends Component {
 				});
 			}
 		);
+
+  	const Marker = ({ title, description }) => 
+			<div>
+				<div onClick={this.handleClick}>
+					<div className="markerText">{title}</div>
+					<div className="markerText">{description}</div>
+				</div>
+				<img className="marker" src={marker} alt="marker"/>
+			</div>;
 		
 		var locationArray = [];
 		for (var i = 0; i < locationData.length; i++) {
@@ -57,10 +70,13 @@ export default class MapDisplay extends Component {
 
 		const locationList = locationArray.map((marker, key) =>
 			<Marker
+				title={marker.movieTitle}
+				description={marker.sceneDescription}
 				key={key}
 	  		lat={marker.sceneLat}
 	  		lng={marker.sceneLon}/>
 		);
+
 
     return (
     	<div className="mapContainer">

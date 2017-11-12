@@ -1,8 +1,9 @@
 {
-  "name": "frontend",
+  "name": "FilmSpottr",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "dotenv": "^4.0.0",
     "geolib": "^2.0.24",
     "google-map-react": "^0.25.0",
     "react": "^16.1.0",
