@@ -1,0 +1,13 @@
+.App {
+  text-align: center;
+}
+
+.marker {
+  fill: #ff0000;
+  height: 40px;
+}
+
+.mapContainer {
+  height: 100vh;
+  width: 100vw;
+}
