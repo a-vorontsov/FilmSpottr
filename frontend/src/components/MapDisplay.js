@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import GoogleMapReact from 'google-map-react';
-import marker from '../img/marker.svg'
+import geolib from 'geolib';
+import marker from '../img/marker.svg';
+import locationData from '../ukFilmLocations.json';
 
 const Marker = () => <div><img className="marker" src={marker} alt="marker"/></div>;
 
@@ -31,7 +33,7 @@ export default class MapDisplay extends Component {
 				});
 			}
 		);
-	}
+	}	
 
   render() {
   	navigator.geolocation.getCurrentPosition(
@@ -43,21 +45,35 @@ export default class MapDisplay extends Component {
 				});
 			}
 		);
+		
+		var locationArray = [];
+		for (var i = 0; i < locationData.length; i++) {
+			var data = locationData[i];
+			const distance = geolib.getDistance({latitude: this.state.lat, longitude: this.state.lng}, {latitude: data.sceneLat, longitude: data.sceneLon});
+			if (distance < 50000) {
+				locationArray.push(data);
+			}
+		}
+
+		const locationList = locationArray.map((marker, key) =>
+			<Marker
+				key={key}
+	  		lat={marker.sceneLat}
+	  		lng={marker.sceneLon}/>
+		);
+
     return (
     	<div className="mapContainer">
 	      <GoogleMapReact
 	      	bootstrapURLKeys={{key: 'AIzaSyC_ZiYZLIO1d0o96Z_H3cQx1LerKnwFw1c'}}
 	      	defaultCenter={this.props.center}
 	      	center={this.state.center}
-	      	defaultZoom={15}
-	      	zoom={15}
+	      	defaultZoom={12}
+	      	zoom={12}
 	      	>
-	      	<Marker
-	      		lat={this.state.lat}
-	      		lng={this.state.lng}/>
-	      	<Marker
-	      		lat={50.865761}
-	      		lng={-0.087263}/>
+	      	{
+	      		locationList
+	      	}
 	      </GoogleMapReact>
       </div>
     )

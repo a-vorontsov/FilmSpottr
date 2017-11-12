@@ -3,8 +3,11 @@
 }
 
 .marker {
-  fill: #ff0000;
+  position: absolute;
   height: 40px;
+  width: 40px;
+  left: -20px;
+  top: -40px;
 }
 
 .mapContainer {
