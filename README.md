@@ -7,4 +7,4 @@
 * Scraping
   * Scrapes data from a bunch of locations for film names, descriptions and film locations
 * Geocoding
-  * Converts scraped data to managable chunks to usage
+  * Get geocode information from Google Maps
