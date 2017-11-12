@@ -14,6 +14,7 @@ export default class MapDisplay extends Component {
 	    greatPlaceCoords: {},
 	    lat: 0,
 	    lng: 0,
+	    displayDesc: false,
     }
   }
 
@@ -24,7 +25,9 @@ export default class MapDisplay extends Component {
 
 
   handleClick() {
-
+  	this.setState({
+  		displayDesc: !this.state.displayDesc
+  	});
   }
 
 	componentDidMount() {
@@ -37,7 +40,7 @@ export default class MapDisplay extends Component {
 				});
 			}
 		);
-	}	
+	}
 
   render() {
   	navigator.geolocation.getCurrentPosition(
@@ -50,13 +53,17 @@ export default class MapDisplay extends Component {
 			}
 		);
 
-  	const Marker = ({ title, description }) => 
+		const Marker = ({ id, title, description}) =>
 			<div>
-				<div onClick={this.handleClick}>
-					<div className="markerText">{title}</div>
+				<div className="markerWrapper">
+					<img onClick={() => this.handleClick()} className="marker" src={marker} alt="marker"/>
+				</div>
+				<div className={this.props.displayDesc ? 'hidden' : 'shown'}>
+					<div className="markerText">
+						<a href={"https://www.imdb.com/title/" + id}>{title}</a>
+					</div>
 					<div className="markerText">{description}</div>
 				</div>
-				<img className="marker" src={marker} alt="marker"/>
 			</div>;
 		
 		var locationArray = [];
@@ -70,6 +77,8 @@ export default class MapDisplay extends Component {
 
 		const locationList = locationArray.map((marker, key) =>
 			<Marker
+				displayDesc={this.state.displayDesc}
+				id={marker.imdbID}
 				title={marker.movieTitle}
 				description={marker.sceneDescription}
 				key={key}
