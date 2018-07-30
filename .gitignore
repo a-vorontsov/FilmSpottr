@@ -1,2 +1,4 @@
 *~
 *.pyc
+frontend/build/
+.DS_Store
